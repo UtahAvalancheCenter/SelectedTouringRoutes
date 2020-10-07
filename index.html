@@ -1,0 +1,99 @@
+<html>
+  <head>
+   		<meta charset='utf-8' />
+		<title>Utah Avalanche Center Selected Touring Route</title>
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+		<style>
+			body { margin:0; padding:0; }
+			#map { position:absolute; top:0; bottom:0; width:100%; }
+			h2 {margin: 3px; font-size: 1.2em;}
+			h3 {margin: 3px;}
+			p {margin: 3px; padding: 3px}
+			.map-overlay {position: absolute; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.8); margin-right: 20px; font-family: Arial, sans-serif; overflow: auto; border-radius: 3px;}
+			#features {top: 0; height: 165px; margin-top: 10px; width: 410px;}
+			#legend {padding: 10px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); line-height: 18px; height: 100px; margin-bottom: 40px; width: 200px;}
+			.legend-key {display: inline-block; border-radius: 20%; width: 10px; height: 10px; margin-right: 5px;}
+			.mapboxgl-popup-content {max-height: 300px; max-width: 400px; overflow: scroll; line-height: 22px;}
+			#menu {position: absolute; background: #fff; padding: 10px; font-family: Arial, sans-serif; margin-top: 5px; margin-left: 5px;}
+		</style>
+  </head>
+
+  <body>
+   		
+		<div id='map'></div>
+
+		<div class='map-overlay' id='features'><h2>Utah Avalanche Center Selected Touring Routes</h2><div id='pd'>
+			<p><b>Click on a route to view its properties.</b><br />
+   			<br />
+   			The map below displays selected touring routes created by the Utah Avalanche Center. Routes are meant to guide users in the backcountry based on terrain management. This map is NOT meant to indicate avalanche hazard. As always, know before you go. <br />
+			<b>NOT BUILT FOR MOBILE USE YET</b></p></div></div>
+		
+		<div class='map-overlay' id='legend'>
+  			<div class='legend-title'><p><b>Legend</b></p></div>
+    			<p>Green: ... <br>
+    			Yellow: ...<br>
+			ect...<br></p>
+		</div>
+
+		<div id='menu'>
+			<input id='ckfykqu3r0cj819t802se8gk3' type='radio' name='rtoggle' value='cjqh2wfydlhuh2smyvu59yiog' checked='checked'>
+			<label for='ckfykqu3r0cj819t802se8gk3'>Topographic</label>
+			<input id='ckfylawa20d6v18pg52jgpinj' type='radio' name='rtoggle' value='cjqmv15kcptzq2sojwhjbxsht'>
+			<label for='ckfylawa20d6v18pg52jgpinj'>Satellite</label>
+		</div>
+		
+   <script>
+     			mapboxgl.accessToken = 'pk.eyJ1IjoidXRhaGF2YWxhbmNoZWNlbnRlciIsImEiOiJja2Z5bDhxdDcxNXZ0Mnpva2RoMnltbWt2In0.ZlMgJK4i2D3D4oJykXi0fw';
+			
+			var filterGroup = document.getElementById('filter-group');
+			
+			var map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/utahavalanchecenter/ckfykqu3r0cj819t802se8gk3',
+				center: [-111.65, 40.625],
+				zoom: 11.45
+			});
+			
+			var layerList = document.getElementById('menu');
+			var inputs = layerList.getElementsByTagName('input');
+			
+			function switchLayer(layer) {
+				var layerId = layer.target.id;
+				map.setStyle('mapbox://styles/utahavalanchecenter/' + layerId);
+			}
+			
+			for (var i = 0; i < inputs.length; i++) {
+				inputs[i].onclick = switchLayer;
+			}
+			
+			map.on('click', 'uacselectedtouringroutes-297kxf', function(e) {
+				new mapboxgl.Popup()
+				.setLngLat(e.lngLat)
+				.setHTML('<h3>' + e.features[0].properties.Name + '</h3><p>' +
+					'<b>' + "Rating: " + '</b>' + e.features[0].properties.Rating + '<br />' +
+					'<b>' + "Distance: " + '</b>' + e.features[0].properties.Miles_Rnd + " miles" + '<br />' +
+					'<b>' + "Starting Elevation: " + '</b>' + e.features[0].properties.Start_Elev + " ft, " + '<b>' + "End Elevation: " + '</b>' + e.features[0].properties.End_Elev + " ft" + '<br />' +
+					'<b>' + "Elevation Gain: " + '</b>' + e.features[0].properties.Elev_Gain + " ft" + '<br />' +
+					'<b>' + "Dogs Allowed? " + '</b>' + e.features[0].properties.Dog + '<br />' +
+					'<b>' + "Slope Angles: " + '</b>' + e.features[0].properties.Slope_Angl + '<br />' +
+					'<b>' + "Forest Density: " + '</b>' + e.features[0].properties.Forest_Den + ", " + '<b>' + "Terrain Traps: " + '</b>' + e.features[0].properties.Trn_Trap + '<br />' +
+					'<b>' + "Avalanche Frequency: " + '</b>' + e.features[0].properties.Avy_Freq + ", " + '<b>' + "Start Zone Density: " + '</b>' + e.features[0].properties.StrtZone_D + '<br />' +
+					'<b>' + "Runout Zone Characteristics: " + '</b>' + e.features[0].properties.Runnout + ", " + '<b>' + "Route Options: " + '</b>' + e.features[0].properties.Rte_Opt + '<br />' +
+					'<b>' + "Interaction with Avalanche Paths: " + '</b>' + e.features[0].properties.Avy_Inter + '<br />' +
+					'<b>' + "Exposure Time: " + '</b>' + e.features[0].properties.Exp_Time + '<br />' +
+					'<b>' + "Description: " + '</b>' + e.features[0].properties.Descrpt + '</p>')
+				.addTo(map);
+			});
+			
+			map.on('mouseenter', 'uacselectedtouringroutes-297kxf', function() {
+				map.getCanvas().style.cursor = 'pointer';
+			});
+			
+			map.on('mouseleave', 'uacselectedtouringroutes-297kxf', function() {
+				map.getCanvas().style.cursor = '';
+			});
+   </script>
+  </body>
+</html>
