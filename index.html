@@ -94,6 +94,21 @@
 			map.on('mouseleave', 'uacselectedtouringroutes-297kxf', function() {
 				map.getCanvas().style.cursor = '';
 			});
+
+			map.on('click', 'beaconparks-44d7pt', function(e) {
+				new mapboxgl.Popup()
+				.setLngLat(e.lngLat)
+				.setHTML('<h3>' + e.features[0].properties.Name + '</h3><p>')
+				.addTo(map);
+			});
+
+			map.on('mouseenter', 'beaconparks-44d7pt', function() {
+				map.getCanvas().style.cursor = 'pointer';
+			});
+			
+			map.on('mouseleave', 'beaconparks-44d7pt', function() {
+				map.getCanvas().style.cursor = '';
+			});
    </script>
   </body>
 </html>
