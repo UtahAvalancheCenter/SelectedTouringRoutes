@@ -11,12 +11,12 @@
 			h2 {margin: 3px; font-size: 1.2em;}
 			h3 {margin: 3px;}
 			p {margin: 3px; padding: 3px}
-			.map-overlay {position: absolute; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.8); margin-right: 20px; font-family: Arial, sans-serif; overflow: auto; border-radius: 3px;}
-			#features {top: 0; height: 165px; margin-top: 10px; width: 410px;}
+			.map-overlay {position: absolute; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.8); margin-right: 20px; font-family: Arial, sans-serif; overflow: auto; border-radius: 5px;}
+			#features {top: 0; height: 135px; margin-top: 10px; width: 450px; padding: 5px;}
 			#legend {padding: 10px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); line-height: 18px; height: 100px; margin-bottom: 40px; width: 200px;}
 			.legend-key {display: inline-block; border-radius: 20%; width: 10px; height: 10px; margin-right: 5px;}
 			.mapboxgl-popup-content {max-height: 300px; max-width: 400px; overflow: scroll; line-height: 22px;}
-			#menu {position: absolute; background: #fff; padding: 10px; font-family: Arial, sans-serif; margin-top: 5px; margin-left: 5px;}
+			#baselayermenu {position: absolute; left: 50px; top: 8px; background: #fff; padding: 10px; font-family: Arial, sans-serif; margin-top: 5px; margin-left: 5px;}
 		</style>
   </head>
 
@@ -26,18 +26,9 @@
 
 		<div class='map-overlay' id='features'><h2>Utah Avalanche Center Selected Touring Routes</h2><div id='pd'>
 			<p><b>Click on a route to view its properties.</b><br />
-   			<br />
-   			The map below displays selected touring routes created by the Utah Avalanche Center. Routes are meant to guide users in the backcountry based on terrain management. This map is NOT meant to indicate avalanche hazard. As always, know before you go. <br />
-			<b>NOT BUILT FOR MOBILE USE YET</b></p></div></div>
-		
-		<div class='map-overlay' id='legend'>
-  			<div class='legend-title'><p><b>Legend</b></p></div>
-    			<p>Green: ... <br>
-    			Yellow: ...<br>
-			ect...<br></p>
-		</div>
+   			The map below displays selected touring routes created by the Utah Avalanche Center. Routes are meant to guide users in the backcountry based on terrain management. This map is NOT meant to indicate avalanche hazard.</p></div></div>
 
-		<div id='menu'>
+		<div id='baselayermenu'>
 			<input id='ckfykqu3r0cj819t802se8gk3' type='radio' name='rtoggle' value='cjqh2wfydlhuh2smyvu59yiog' checked='checked'>
 			<label for='ckfykqu3r0cj819t802se8gk3'>Topographic</label>
 			<input id='ckfylawa20d6v18pg52jgpinj' type='radio' name='rtoggle' value='cjqmv15kcptzq2sojwhjbxsht'>
@@ -56,7 +47,7 @@
 				zoom: 11.45
 			});
 			
-			var layerList = document.getElementById('menu');
+			var layerList = document.getElementById('baselayermenu');
 			var inputs = layerList.getElementsByTagName('input');
 			
 			function switchLayer(layer) {
@@ -86,7 +77,7 @@
 					'<b>' + "Description: " + '</b>' + e.features[0].properties.Descrpt + '</p>')
 				.addTo(map);
 			});
-			
+
 			map.on('mouseenter', 'uacselectedtouringroutes-297kxf', function() {
 				map.getCanvas().style.cursor = 'pointer';
 			});
@@ -109,6 +100,11 @@
 			map.on('mouseleave', 'beaconparks-44d7pt', function() {
 				map.getCanvas().style.cursor = '';
 			});
+
+			map.touchZoomRotate.enable();
+
+			var nav = new mapboxgl.NavigationControl();
+			map.addControl(nav, 'top-left');
    </script>
   </body>
 </html>
