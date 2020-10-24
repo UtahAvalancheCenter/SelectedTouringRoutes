@@ -89,7 +89,8 @@
 			map.on('click', 'beaconparks-44d7pt', function(e) {
 				new mapboxgl.Popup()
 				.setLngLat(e.lngLat)
-				.setHTML('<h3>' + e.features[0].properties.Name + '</h3><p>')
+				.setHTML('<h3>' + e.features[0].properties.Name + '</h3><p>' +
+					'<b>' + "Type: " + '</b>' + e.features[0].properties.Location + ", " + '<b>' + "Elevation: " + '</b>' + e.features[0].properties.Elev_ft + " ft" + '</p>')
 				.addTo(map);
 			});
 
